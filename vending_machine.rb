@@ -2,6 +2,7 @@ class VendingMachine
 
   def initialize
      @total = 0
+     @refund = 0
   end　
 
   def insert(value)
@@ -12,12 +13,17 @@ class VendingMachine
     else 
       puts "nil (OK)"
       @total += @value
-    end
-      puts @total 
+    end 
   end
 
   def total
     puts @total
+  end
+
+  def refund
+    puts @total
+    @refund = @total
+    @total -= @refund 
   end
 
 end
