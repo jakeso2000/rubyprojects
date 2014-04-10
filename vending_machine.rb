@@ -7,7 +7,7 @@ class VendingMachine
 
   def insert(value)
     @value = value
-    values = [10, 50, 100, 1000, 10000]
+    values = [10, 50, 100, 500, 1000]
     unless values.include?(value)
       puts "#{@value} (not available)"
     else 
