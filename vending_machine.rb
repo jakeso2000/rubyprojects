@@ -1,30 +1,25 @@
 class VendingMachine
+  AVAILABLE_VALUES = [10, 50, 100, 500, 1000]
 
   def initialize
-     @total = 0
-     @refund = 0
-  end　
+    @total = 0
+  end
 
   def insert(value)
-    @value = value
-    values = [10, 50, 100, 500, 1000]
-    unless values.include?(value)
-      puts "#{@value} (not available)"
+    unless AVAILABLE_VALUES.include?(value)
+      nil
     else 
-      puts "nil (OK)"
-      @total += @value
+      @total += value
     end 
   end
 
   def total
-    puts @total
+    @total
   end
 
-  def refund
-    puts @total
-    @refund = @total
-    @total -= @refund 
+  def refund 
+    refund = @total
+    @total = 0
+    refund 
   end
-
 end
-
