@@ -1,3 +1,15 @@
+class Drink
+  def self.redbull
+   {:redbull => {:price=>200, :stock=>1}}
+  end
+
+  def self.water
+   {:water => {:price=>100, :stock=>1}}
+  end
+
+end
+
+
 class VendingMachine
   AVAILABLE_VALUES = [10, 50, 100, 500, 1000]
   PURCHASABLE_DRINK_NAMES = [:cola]
@@ -9,10 +21,11 @@ class VendingMachine
   end
 
   def insert(value)
-    unless AVAILABLE_VALUES.include?(value)
-      nil
-    else 
+    if AVAILABLE_VALUES.include?(value) 
       @total += value
+      nil
+    else
+      value
     end 
   end
     
@@ -49,6 +62,10 @@ class VendingMachine
     @total -= drink_price(drink_name)  
     true  
   end  
+
+  def store(drink_data)
+    @stock_table = @stock_table.merge(drink_data) 
+  end
 
   def sale_amount
     @sale_amount 
