@@ -11,13 +11,12 @@ end
 
 
 class VendingMachine
-  AVAILABLE_VALUES = [10, 50, 100, 500, 1000]
-  PURCHASABLE_DRINK_NAMES = [:cola]
+  AVAILABLE_VALUES = [10, 50, 100, 500, 1000].freeze
 
   def initialize
     @total = 0
     @stock_table = {:cola => {:price=>120, :stock=>5}}
-    @sale_amount = 0
+    @sale_amount = 0  
   end
 
   def insert(value)
@@ -52,20 +51,27 @@ class VendingMachine
   end
 
   def purchasable?(drink_name)
-    (PURCHASABLE_DRINK_NAMES.include? drink_name) && (@total >= drink_price(drink_name))  
+    (@stock_table.has_key? drink_name) && (@total >= drink_price(drink_name))  
   end 
 
   def purchase(drink_name)
-    return false unless purchasable? drink_name
+    return nil unless purchasable? drink_name
     @sale_amount += drink_price(drink_name)
     decrease_stock(drink_name, 1)
     @total -= drink_price(drink_name)  
-    true  
+    refund = @total
+    drink = "<Drink: name=#{drink_name}, price=#{drink_price(drink_name)}>"
+    @total = 0 
+    [drink, refund]
   end  
 
   def store(drink_data)
     @stock_table = @stock_table.merge(drink_data) 
   end
+
+  def purchasable_drink_names
+    @stock_table.select {|k, v| @total >= v[:price] }.keys
+  end 
 
   def sale_amount
     @sale_amount 
