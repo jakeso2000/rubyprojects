@@ -31,8 +31,7 @@ class VendingMachine
   end
 
   def purchasable?(drink_name)
-    PURCHASABLE＿DRINK_NAMES.include? drink_name
-    @total >= @stock_table[:cola][:price]   
+    PURCHASABLE＿DRINK_NAMES.include? drink_name && @total >= @stock_table[:cola][:price]   
   end 
 
   def purchase(drink_name)
