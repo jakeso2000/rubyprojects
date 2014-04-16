@@ -1,6 +1,6 @@
 class VendingMachine
   AVAILABLE_VALUES = [10, 50, 100, 500, 1000]
-  PURCHASABLE＿DRINK_NAMES = [:cola]
+  PURCHASABLE_DRINK_NAMES = [:cola]
 
   def initialize
     @total = 0
@@ -30,20 +30,29 @@ class VendingMachine
     @stock_table
   end
 
+  def drink_price(drink_name)
+    @stock_table[:drink_name][:price]
+  end
+
+  def decrease_stock(drink_name, amount)
+    @stock_table[:drink_name][:stock] -= amount
+  end
+
   def purchasable?(drink_name)
-    PURCHASABLE＿DRINK_NAMES.include? drink_name && @total >= @stock_table[:cola][:price]   
+    PURCHASABLE_DRINK_NAMES.include? drink_name && @total >= drink_price(drink_name)   
   end 
 
   def purchase(drink_name)
     return false unless purchasable? drink_name
-      @sale_amount += @stock_table[:cola][:price]
-      @stock_table[:cola][:stock] = @stock_table[:cola][:stock] - 1
-      @total -= @stock_table[:cola][:price]  
-      true  
+    @sale_amount += drink_price(drink_name)
+    decrease_stock(drink_name, 1)
+    @total -= drink_price(drink_name)  
+    true  
   end  
 
   def sale_amount
     @sale_amount 
   end
+ 
 
 end
