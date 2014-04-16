@@ -31,15 +31,15 @@ class VendingMachine
   end
 
   def drink_price(drink_name)
-    @stock_table[:drink_name][:price]
+    @stock_table[drink_name][:price]
   end
 
   def decrease_stock(drink_name, amount)
-    @stock_table[:drink_name][:stock] -= amount
+    @stock_table[drink_name][:stock] -= amount
   end
 
   def purchasable?(drink_name)
-    PURCHASABLE_DRINK_NAMES.include? drink_name && @total >= drink_price(drink_name)   
+    (PURCHASABLE_DRINK_NAMES.include? drink_name) && (@total >= drink_price(drink_name))  
   end 
 
   def purchase(drink_name)
