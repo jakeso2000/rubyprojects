@@ -59,11 +59,15 @@ class VendingMachine
     @sale_amount += drink_price(drink_name)
     decrease_stock(drink_name, 1)
     @total -= drink_price(drink_name)  
-    refund = @total
-    drink = "<Drink: name=#{drink_name}, price=#{drink_price(drink_name)}>"
-    @total = 0 
-    [drink, refund]
+    change(drink_name)
   end  
+
+  def change(drink_name)
+    refund = @total
+    @total = 0
+    drink = "<Drink: name=#{drink_name}, price=#{drink_price(drink_name)}>"
+    [drink, refund]
+  end
 
   def store(drink_data)
     @stock_table = @stock_table.merge(drink_data) 
